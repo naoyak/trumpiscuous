@@ -7,7 +7,6 @@ dependencies:
 - mkl=11.3.3=0
 - nltk=3.2.1=py35_0
 - numpy=1.11.1=py35_0
-- openssl=1.0.2h=2
 - pip=8.1.2=py35_0
 - pyparsing=2.1.4=py35_0
 - pyqt=4.11.4=py35_4
@@ -36,6 +35,7 @@ dependencies:
   - jinja2==2.8
   - keras==1.0.7
   - markupsafe==0.23
+  - openssl=1.0.2h=2
   - pyyaml==3.11
   - theano==0.9.0.dev2
   - visitor==0.1.3
