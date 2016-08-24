@@ -79,6 +79,7 @@ def train_model(corpus_data, save_path, model_path=None, batch_size=128, nb_epoc
     history = History()
 
     model.fit(X, y, batch_size=batch_size, nb_epoch=nb_epoch, callbacks=[checkpoint, history])
+    model.save('new_model.h5')
     return model
 
 def generate_speech(model, diversity, corpus_data):
