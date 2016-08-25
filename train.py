@@ -41,9 +41,9 @@ def build_data(filenames, cutoff_ratio=0.25, maxlen=15, step=3):
 
 
     print('Vectorization...')
-    X = np.zeros((len(words_split), maxlen, len(word_set)), dtype=np.bool)
+    X = np.zeros((len(word_seqs), maxlen, len(word_set)), dtype=np.bool)
     print(X.shape)
-    y = np.zeros((len(words_split), len(word_set)), dtype=np.bool)
+    y = np.zeros((len(word_seqs), len(word_set)), dtype=np.bool)
     for i, word_seq in enumerate(word_seqs):
         for t, word in enumerate(word_seq):
             X[i, t, word_indices[word]] = 1
