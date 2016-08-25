@@ -7,7 +7,7 @@ __pycache__/
 env/
 
 # Data folder
-
+model_save/*.h5
 
 # IPython NB Checkpoints
 .ipynb_checkpoints/
