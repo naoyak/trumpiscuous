@@ -15,6 +15,7 @@ app.config.from_object(__name__)
 
 prep_data = prep_data(filenames, 0.5, 15, 10)
 model = load_model('model_save/all.h5')
+print('Model loaded!')
 
 @app.route('/gen/', methods=["POST"])
 def generate_text():
@@ -36,6 +37,7 @@ def main_page():
     return render_template("index.html", form=form)
 
 def main(host="0.0.0.0", port=9000, debug=True):
+    print('Starting app...')
     app.run(host=host, port=port,debug=debug)
 
 if __name__ == '__main__':
