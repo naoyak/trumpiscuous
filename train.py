@@ -15,7 +15,7 @@ from nltk import word_tokenize
 def build_data(filenames, maxlen=15, step=3):
     text = ''
     for f in filenames:
-        text += open('corpora/{}'.format(f)).read()
+        text += open('corpora/{}'.format(f)).read().lower()
     print('corpus length:', len(text))
 
     # break into sentences
