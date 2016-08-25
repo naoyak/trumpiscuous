@@ -116,4 +116,6 @@ def generate_speech(model, diversity, corpus_data):
         sys.stdout.write((" " if next_word[0].isalnum() else "") + next_word)
         sys.stdout.flush()
         print()
-    return generated
+
+    generated_sentence = "".join([" " + word if word[0].isalnum() else word for word in generated])
+    return generated_sentence
