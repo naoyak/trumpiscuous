@@ -3,12 +3,86 @@
 {% block title %}Trumptastic{% endblock %}
 
 {% block navbar %}
-<div class="navbar navbar-fixed-top">
+
+<nav class="navbar navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+        <span class="navbar-brand" href="#">RoboTrump</a>
+    </div>
+    <ul class="nav navbar-nav">
+        <li><a href="https://github.com/naoyak">@naoyak</a></li>
+        <li><a href="http://blog.naoya.io">Blog</a></li>
+        <li><a href="http://twitter.com/naoyak">Twitter</a></li>
+      </ul>
+
+  </div>
   <!-- ... -->
-</div>
+</nav>
 {% endblock %}
 
 {% block content %}
-  <h1>RoboTrump</h1>
-  {{ wtf.quick_form(form) }}
+  <h1 class="text-center">RoboTrump</h1>
+
+  <div class="top-image">
+    <img class="img-responsive center-block" src="/static/trump-robot.jpg" style="max-height: 300px;"alt="" />
+
+  </div>
+  <div class="center-block" style="max-width: 60%; margin: 20px auto;">
+
+
+    <blockquote class="center-block speech-text" style="">
+      <p id="speech-body" style="">
+
+      </p>
+    </blockquote>
+  </div>
+  <div class="center-block" style="max-width: 50%;">
+    {{ wtf.quick_form(form) }}
+
+  </div>
+
+{% endblock %}
+{% block scripts %}
+  {{super()}}
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('#submit').click(function(e) {
+        e.preventDefault();
+        data = {
+          // 'csrf_token': ,
+          // 'csrftoken':
+          'diversity': $('#diversity').val(),
+          'length': $('#length').val(),
+          'corpus': $('#corpus').val()
+        };
+
+        var csrftoken = $('meta[name=csrf-token]').attr('content')
+
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken)
+                }
+            }
+        });
+
+        $.ajax({
+          url: '/gen/',
+          data: JSON.stringify(data),
+          type: 'POST',
+          contentType:'application/json;charset=UTF-8',
+          success: function(response) {
+            console.log(response);
+            $('#speech-body').text(response);
+            // display text here
+          },
+          error: function(error) {
+            console.log(error);
+          }
+
+
+        });
+      })
+    });
+  </script>
 {% endblock %}

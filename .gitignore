@@ -46,7 +46,7 @@ env/
 *.pickle
 *.pkl
 *.npy
-
+*.h5
 
 # OS generated files #
 ######################

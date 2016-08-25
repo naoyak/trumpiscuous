@@ -62,6 +62,7 @@ dependencies:
   - flask==0.11.1
   - flask-bootstrap==3.3.6.0
   - flask-wtf==0.12
+  - gunicorn==19.6.0
   - h5py==2.6.0
   - ipython-genutils==0.1.0
   - itsdangerous==0.24

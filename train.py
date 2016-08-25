@@ -42,6 +42,7 @@ def build_data(filenames, cutoff_ratio=0.25, maxlen=15, step=3):
 
     print('Vectorization...')
     X = np.zeros((len(words_split), maxlen, len(word_set)), dtype=np.bool)
+    print(X.shape)
     y = np.zeros((len(words_split), len(word_set)), dtype=np.bool)
     for i, word_seq in enumerate(word_seqs):
         for t, word in enumerate(word_seq):
@@ -87,7 +88,7 @@ def train_model(corpus_data, save_path, model_path=None, batch_size=128, nb_epoc
     model.fit(X, y, batch_size=batch_size, nb_epoch=nb_epoch, callbacks=[checkpoint, history])
     return model
 
-def generate_speech(model, diversity, corpus_data):
+def generate_speech(model, diversity, corpus_data, length=200):
     X, y, maxlen, step, words_split, word_seqs, word_set, word_indices, indices_word = corpus_data
     start_index = random.randint(0, len(word_seqs))
 
@@ -97,9 +98,9 @@ def generate_speech(model, diversity, corpus_data):
     sentence = word_seqs[start_index]
     generated.extend(sentence)
     print('----- Generating with seed: "' + " ".join(sentence) + '"')
-    sys.stdout.write(" ".join(generated))
+    # sys.stdout.write(" ".join(generated))
 
-    for i in range(400):
+    for i in range(length):
         x = np.zeros((1, maxlen, len(word_set)))
         for t, word in enumerate(sentence):
             x[0, t, word_indices[word]] = 1.
@@ -113,8 +114,8 @@ def generate_speech(model, diversity, corpus_data):
         sentence.append(next_word)
 
 
-        sys.stdout.write((" " if next_word[0].isalnum() else "") + next_word)
-        sys.stdout.flush()
+        # sys.stdout.write((" " if next_word[0].isalnum() else "") + next_word)
+        # sys.stdout.flush()
         print()
 
     generated_sentence = "".join([" " + word if word[0].isalnum() else word for word in generated])

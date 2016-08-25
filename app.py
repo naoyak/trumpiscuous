@@ -1,6 +1,9 @@
 from flask import Flask, request, render_template, jsonify
 from flask_bootstrap import Bootstrap
 from forms import TrumpForm
+from train import *
+
+filenames = ['trump_speeches.txt']
 
 app = Flask(__name__)
 Bootstrap(app)
@@ -8,15 +11,21 @@ app.config['SECRET_KEY'] = 'devkey'
 
 app.config.from_object(__name__)
 
+corpus_data = build_data(filenames, 0.50, 15, 3)
+model = load_model('trump_50_15_3.h5')
+
 @app.route('/gen/', methods=["POST"])
 def generate_text():
     """
     Accepts a POST request with parameters and generates a speech from the stored model.
     """
     data = request.json
-    message = ''
+    diversity = float(data['diversity'])
+    length = float(data['length'])
+    text = generate_speech(model, diversity, corpus_data)
+    message = 'hello'
 
-    return message
+    return text
 
 @app.route('/', methods=['GET'])
 def main_page():
