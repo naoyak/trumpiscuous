@@ -13,7 +13,7 @@ import random
 import sys
 from nltk import word_tokenize
 
-def build_data(filenames, maxlen=15, step=3):
+def build_data(filenames, cutoff_ratio=0.25, maxlen=15, step=3):
     text = ''
     for f in filenames:
         text += open('corpora/{}'.format(f)).read().lower()
@@ -23,7 +23,7 @@ def build_data(filenames, maxlen=15, step=3):
     # break into sentences
     words_split = word_tokenize(text)
     word_counter = Counter(words_split).most_common()
-    cutoff_ratio = 0.15
+
     top_words = [w[0] for w in word_counter[:int(len(word_counter) * cutoff_ratio)]]
     words_split = [word for word in words_split if word in top_words]
 
