@@ -7,6 +7,7 @@ from keras.layers import Dense, Activation, Dropout
 from keras.layers import LSTM
 from keras.optimizers import RMSprop
 from keras.callbacks import History, ModelCheckpoint
+from collections import Counter
 import numpy as np
 import random
 import sys
@@ -16,10 +17,15 @@ def build_data(filenames, maxlen=15, step=3):
     text = ''
     for f in filenames:
         text += open('corpora/{}'.format(f)).read().lower()
+
     print('corpus length:', len(text))
 
     # break into sentences
     words_split = word_tokenize(text)
+    word_counter = Counter(words_split).most_common()
+    cutoff_ratio = 0.15
+    top_words = [w[0] for w in word_counter[:int(len(word_counter) * cutoff_ratio)]]
+    words_split = [word for word in words_split if word in top_words]
 
     word_set = sorted(list(set(words_split)))
     print('total words:', len(word_set))
