@@ -1,6 +1,5 @@
 name: trumptastic
 dependencies:
-- appnope=0.1.0=py35_0
 - cycler=0.10.0=py35_0
 - decorator=4.0.10=py35_0
 - entrypoints=0.2.2=py35_0
@@ -18,7 +17,6 @@ dependencies:
 - libpng=1.6.22=0
 - markupsafe=0.23=py35_2
 - matplotlib=1.5.1=np111py35_0
-- mistune=0.7.2=py35_1
 - mkl=11.3.3=0
 - nbconvert=4.2.0=py35_0
 - nbformat=4.1.0=py35_0
@@ -37,7 +35,6 @@ dependencies:
 - pyqt=4.11.4=py35_4
 - python=3.5.2=0
 - python-dateutil=2.5.3=py35_0
-- python.app=1.2=py35_4
 - pytz=2016.6.1=py35_0
 - pyzmq=15.4.0=py35_0
 - qt=4.8.7=4
@@ -59,6 +56,7 @@ dependencies:
 - xz=5.2.2=0
 - zlib=1.2.8=3
 - pip:
+  - appnope=0.1.0
   - click==6.6
   - dominate==2.2.1
   - flask==0.11.1
@@ -71,6 +69,7 @@ dependencies:
   - jupyter-console==5.0.0
   - jupyter-core==4.1.1
   - keras==1.0.7
+  - mistune=0.7.2
   - prompt-toolkit==1.0.3
   - pyyaml==3.11
   - git+git://github.com/Theano/Theano.git
