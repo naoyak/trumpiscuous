@@ -39,12 +39,12 @@ def prep_data(filenames, cutoff_ratio=0.25, maxlen=15, step=3):
         word_seqs.append(words_split[i: i + maxlen])
         next_words.append(words_split[i + maxlen])
 
-    return (maxlen, step, words_split, word_seqs, word_set, word_indices, indices_word)
+    return (maxlen, step, words_split, word_seqs, next_words, word_set, word_indices, indices_word)
 
 
 
 def build_data(filenames, cutoff_ratio=0.25, maxlen=15, step=3):
-    _, _, words_split, word_seqs, word_set, word_indices, indices_word = prep_data(filenames, cutoff_ratio, maxlen, step)
+    _, _, words_split, word_seqs, next_words, word_set, word_indices, indices_word = prep_data(filenames, cutoff_ratio, maxlen, step)
 
     print('Vectorization...')
     X = np.zeros((len(word_seqs), maxlen, len(word_set)), dtype=np.bool)
@@ -54,7 +54,7 @@ def build_data(filenames, cutoff_ratio=0.25, maxlen=15, step=3):
         for t, word in enumerate(word_seq):
             X[i, t, word_indices[word]] = 1
         y[i, word_indices[next_words[i]]] = 1
-    return (X, y, maxlen, step, words_split, word_seqs, word_set, word_indices, indices_word)
+    return (X, y, maxlen, step, words_split, word_seqs, next_words, word_set, word_indices, indices_word)
 
 
 def new_model(maxlen, word_set):
@@ -80,7 +80,7 @@ def sample(preds, temperature=1.0):
     return np.argmax(probas)
 
 def train_model(corpus_data, save_path, model_path=None, batch_size=128, nb_epoch=1):
-    X, y, maxlen, step, words_split, word_seqs, word_set, word_indices, indices_word = corpus_data
+    X, y, maxlen, step, words_split, word_seqs, next_words, word_set, word_indices, indices_word = corpus_data
     if model_path is None:
         model = new_model(maxlen, word_set)
     else:
