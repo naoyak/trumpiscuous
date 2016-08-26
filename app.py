@@ -5,16 +5,23 @@ from forms import TrumpForm
 from train import prep_data, generate_speech
 
 
-filenames = ['trump_speeches.txt', 'mgmt_of_savagery.txt', 'cartman.txt']
-
 app = Flask(__name__)
 Bootstrap(app)
 app.config['SECRET_KEY'] = 'devkey'
 
 app.config.from_object(__name__)
 
-prep_data = prep_data(filenames, 0.5, 15, 10)
-model = load_model('model_save/all.h5')
+model_data = {
+    'trump': {
+        'model': load_model('model_save/trump_trunc.h5'),
+        'prep_data': prep_data(['trump_speeches_trunc.txt'], 1.0, 15, 3)
+    },
+    'trump-jihadi-cartman': {
+        'model': load_model('model_save/all.h5'),
+        'prep_data': prep_data(['trump_speeches.txt', 'mgmt_of_savagery.txt', 'cartman.txt'], 0.5, 15, 10)
+    }
+}
+
 print('Model loaded!')
 
 @app.route('/gen/', methods=["POST"])
@@ -25,7 +32,8 @@ def generate_text():
     data = request.json
     diversity = float(data['diversity'])
     length = float(data['length'])
-    text = generate_speech(model, diversity, prep_data)
+    corpus = data['corpus']
+    text = generate_speech(model_data[corpus]['model'], diversity, model_data[corpus]['prep_data'])
     message = 'hello'
 
     return text

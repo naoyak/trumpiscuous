@@ -94,7 +94,7 @@ def train_model(corpus_data, save_path, model_path=None, batch_size=128, nb_epoc
     return model
 
 def generate_speech(model, diversity, corpus_data, length=200):
-    maxlen, step, words_split, word_seqs, word_set, word_indices, indices_word = corpus_data
+    maxlen, step, words_split, word_seqs, next_words, word_set, word_indices, indices_word = corpus_data
     start_index = random.randint(0, len(word_seqs))
 
     print('----- diversity:', diversity)

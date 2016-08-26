@@ -5,5 +5,5 @@ from wtforms.validators import DataRequired
 class TrumpForm(Form):
     length = IntegerField('Speech Length', validators=[DataRequired()])
     diversity = DecimalField('Diversity', validators=[DataRequired()])
-    corpus = SelectField('Choose Corpus', choices=[('trump', 'Trump Speeches'), ('all', 'Trump-Jihadi-Cartman')])
+    corpus = SelectField('Choose Corpus', choices=[('trump', 'Trump Speeches'), ('trump-jihadi-cartman', 'Trump-Jihadi-Cartman')])
     submit = SubmitField('Generate text! 🔥')
